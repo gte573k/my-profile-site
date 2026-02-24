@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html id="html-root" lang="ko" class="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="조개발 — Frontend Developer 웹 이력서" />
+  <title>조개발 | Frontend Developer</title>
+
+  <!-- Google Fonts: Inter + Noto Sans KR -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- TailwindCSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans KR', 'sans-serif'],
+          },
+          colors: {
+            indigo: {
+              50:  '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- 커스텀 스타일 -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans antialiased">
+
+  <!-- ════════════════════════════════════════
+       스크롤 진행률 바
+  ════════════════════════════════════════ -->
+  <div id="progress-bar" aria-hidden="true"></div>
+
+  <!-- ════════════════════════════════════════
+       NAVIGATION
+  ════════════════════════════════════════ -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+
+        <!-- 로고 -->
+        <a href="#hero" class="font-bold text-xl text-indigo-600 dark:text-indigo-400 tracking-tight">
+          &lt;조개발 /&gt;
+        </a>
+
+        <!-- 데스크탑 네비 링크 -->
+        <ul class="hidden md:flex items-center gap-7">
+          <li><a class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-section="about"      href="#about">About</a></li>
+          <li><a class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-section="skills"     href="#skills">Skills</a></li>
+          <li><a class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-section="experience" href="#experience">Experience</a></li>
+          <li><a class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-section="projects"   href="#projects">Projects</a></li>
+          <li><a class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-section="sns"        href="#sns">SNS</a></li>
+          <li><a class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-section="contact"    href="#contact">Contact</a></li>
+        </ul>
+
+        <!-- 우측: 다크모드 토글 + 햄버거 -->
+        <div class="flex items-center gap-3">
+          <!-- 다크모드 토글 -->
+          <button
+            id="theme-toggle"
+            aria-label="다크모드 전환"
+            class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          >
+            <!-- 달 아이콘 (라이트 모드에 표시) -->
+            <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>
+            </svg>
+            <!-- 해 아이콘 (다크 모드에 표시) -->
+            <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m8.66-9h-1M4.34 12h-1m15.07-6.07-.71.71M5.64 18.36l-.71.71M18.36 18.36l-.71-.71M5.64 5.64l-.71-.71M12 5a7 7 0 100 14A7 7 0 0012 5z"/>
+            </svg>
+          </button>
+
+          <!-- 햄버거 버튼 (모바일) -->
+          <button
+            id="hamburger-btn"
+            aria-label="메뉴 열기"
+            aria-expanded="false"
+            class="md:hidden p-2 rounded-md text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 모바일 메뉴 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
+      <ul class="flex flex-col py-2 px-4">
+        <li><a class="nav-link block py-3 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-section="about"      href="#about">About</a></li>
+        <li><a class="nav-link block py-3 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-section="skills"     href="#skills">Skills</a></li>
+        <li><a class="nav-link block py-3 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-section="experience" href="#experience">Experience</a></li>
+        <li><a class="nav-link block py-3 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-section="projects"   href="#projects">Projects</a></li>
+        <li><a class="nav-link block py-3 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-section="sns"        href="#sns">SNS</a></li>
+        <li><a class="nav-link block py-3 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-section="contact"    href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- ════════════════════════════════════════
+       HERO 섹션
+  ════════════════════════════════════════ -->
+  <section id="hero" class="min-h-screen flex items-center justify-center pt-16 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+
+      <!-- 프로필 이미지 -->
+      <div class="reveal mb-8 flex justify-center">
+        <img
+          src="https://api.dicebear.com/9.x/avataaars/png?seed=%EC%A1%B0%EA%B0%9C%EB%B0%9C&backgroundColor=6366f1"
+          alt="조개발 프로필 사진"
+          width="160" height="160"
+          loading="lazy"
+          onerror="this.src='https://api.dicebear.com/9.x/pixel-art/png?seed=%EC%A1%B0%EA%B0%9C%EB%B0%9C'; this.onerror=null;"
+          class="w-32 h-32 sm:w-40 sm:h-40 rounded-full ring-4 ring-indigo-100 dark:ring-indigo-900 shadow-xl"
+        />
+      </div>
+
+      <!-- 이름 -->
+      <div class="reveal delay-100">
+        <p class="text-indigo-600 dark:text-indigo-400 font-semibold tracking-widest text-sm uppercase mb-2">Hello, I'm</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-4 leading-tight">
+          조개발
+        </h1>
+      </div>
+
+      <!-- 타이핑 애니메이션 -->
+      <div class="reveal delay-200 flex items-center justify-center gap-1 mb-6 text-xl sm:text-2xl font-semibold text-indigo-500 dark:text-indigo-400">
+        <span id="typing-text"></span>
+        <span class="typing-cursor"></span>
+      </div>
+
+      <!-- 소개 문구 -->
+      <p class="reveal delay-300 text-gray-600 dark:text-gray-400 text-base sm:text-lg leading-relaxed max-w-xl mx-auto mb-8">
+        사용자 경험을 중심으로 생각하는 프론트엔드 개발자입니다.<br class="hidden sm:block" />
+        웹 표준과 접근성을 고려하며 팀과 함께 성장하는 것을 즐깁니다.
+      </p>
+
+      <!-- SNS 퀵링크 -->
+      <div class="reveal delay-400 flex justify-center gap-3 mb-8">
+        <a href="https://github.com/devkim" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="sns-icon-btn">
+          <!-- GitHub SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.42 7.86 10.94.57.1.78-.25.78-.55v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.73-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 012.87-.39c.97 0 1.95.13 2.87.39 2.18-1.49 3.14-1.18 3.14-1.18.63 1.58.24 2.75.12 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.79.55A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/>
+          </svg>
+        </a>
+        <a href="https://linkedin.com/in/devkim" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="sns-icon-btn">
+          <!-- LinkedIn SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 110-4.13 2.07 2.07 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46C23.21 24 24 23.23 24 22.27V1.73C24 .77 23.21 0 22.23 0z"/>
+          </svg>
+        </a>
+        <a href="https://twitter.com/devkim" target="_blank" rel="noopener noreferrer" aria-label="Twitter/X" class="sns-icon-btn">
+          <!-- X(Twitter) SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="https://instagram.com/devkim" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="sns-icon-btn">
+          <!-- Instagram SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+        </a>
+        <a href="mailto:dev.kim@email.com" aria-label="이메일" class="sns-icon-btn">
+          <!-- Mail SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- CTA 버튼 -->
+      <div class="reveal delay-400 flex flex-wrap justify-center gap-4">
+        <a href="#contact" class="btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          연락하기
+        </a>
+        <a href="#projects" class="btn-outline">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+          </svg>
+          프로젝트 보기
+        </a>
+      </div>
+
+      <!-- 스크롤 화살표 -->
+      <div class="mt-16 animate-bounce">
+        <a href="#about" aria-label="아래로 스크롤" class="inline-block text-gray-400 dark:text-gray-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       ABOUT 섹션
+  ════════════════════════════════════════ -->
+  <section id="about" class="section-container section-bg-alt px-4">
+    <div class="max-w-4xl mx-auto">
+
+      <div class="reveal">
+        <p class="text-indigo-600 dark:text-indigo-400 font-semibold tracking-widest text-xs uppercase mb-1">Who I Am</p>
+        <h2 class="section-title text-gray-900 dark:text-white">About Me</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 items-start">
+
+        <!-- 자기소개 텍스트 -->
+        <div class="reveal">
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+            사용자 경험을 최우선으로 생각하는 <strong class="text-gray-900 dark:text-white">프론트엔드 개발자</strong>입니다.
+            웹 표준과 접근성을 고려한 코드 작성을 지향하며, 끊임없이 새로운 기술을 습득하고 있습니다.
+          </p>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+            React와 Vue.js를 활용한 SPA 개발 경험이 있으며, TailwindCSS를 통한 효율적인 UI 구현에 익숙합니다.
+            사용자의 요구사항을 기술적으로 해석하고 구현하는 것을 즐깁니다.
+          </p>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            협업과 커뮤니케이션을 통해 팀의 목표를 함께 달성하는 것을 즐기며,
+            <strong class="text-gray-900 dark:text-white">코드 리뷰</strong>와 지식 공유 문화를 중요하게 생각합니다.
+          </p>
+        </div>
+
+        <!-- 특기사항 4개 -->
+        <div class="reveal delay-200 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- 카드 1 -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div class="text-indigo-500 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Clean Code</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">읽기 쉽고 유지보수하기 좋은 코드 작성을 추구합니다.</p>
+          </div>
+
+          <!-- 카드 2 -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div class="text-indigo-500 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-1">반응형 UI</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">모든 디바이스에서 완벽하게 작동하는 UI를 설계합니다.</p>
+          </div>
+
+          <!-- 카드 3 -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div class="text-indigo-500 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-1">팀워크</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">적극적인 커뮤니케이션으로 팀 성과를 극대화합니다.</p>
+          </div>
+
+          <!-- 카드 4 -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div class="text-indigo-500 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-1">성능 최적화</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">빠른 로딩 속도와 부드러운 UX를 위해 항상 최적화를 고려합니다.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SKILLS 섹션
+  ════════════════════════════════════════ -->
+  <section id="skills" class="section-container px-4">
+    <div class="max-w-4xl mx-auto">
+
+      <div class="reveal">
+        <p class="text-indigo-600 dark:text-indigo-400 font-semibold tracking-widest text-xs uppercase mb-1">What I Know</p>
+        <h2 class="section-title text-gray-900 dark:text-white">Skills</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Frontend -->
+        <div class="reveal">
+          <p class="skill-category-title">Frontend</p>
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge--primary inline-block px-3 py-1 rounded-full text-sm font-medium">HTML5</span>
+              <span class="skill-badge--primary inline-block px-3 py-1 rounded-full text-sm font-medium">CSS3</span>
+              <span class="skill-badge--primary inline-block px-3 py-1 rounded-full text-sm font-medium">JavaScript</span>
+              <span class="skill-badge--primary inline-block px-3 py-1 rounded-full text-sm font-medium">TypeScript</span>
+              <span class="skill-badge--primary inline-block px-3 py-1 rounded-full text-sm font-medium">React</span>
+              <span class="skill-badge--primary inline-block px-3 py-1 rounded-full text-sm font-medium">Vue.js</span>
+              <span class="skill-badge--primary inline-block px-3 py-1 rounded-full text-sm font-medium">TailwindCSS</span>
+              <span class="skill-badge--primary inline-block px-3 py-1 rounded-full text-sm font-medium">SCSS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Backend -->
+        <div class="reveal delay-100">
+          <p class="skill-category-title">Backend</p>
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge--green inline-block px-3 py-1 rounded-full text-sm font-medium">Node.js</span>
+              <span class="skill-badge--green inline-block px-3 py-1 rounded-full text-sm font-medium">Express.js</span>
+              <span class="skill-badge--green inline-block px-3 py-1 rounded-full text-sm font-medium">MySQL</span>
+              <span class="skill-badge--green inline-block px-3 py-1 rounded-full text-sm font-medium">MongoDB</span>
+              <span class="skill-badge--green inline-block px-3 py-1 rounded-full text-sm font-medium">REST API</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tools & DevOps -->
+        <div class="reveal delay-200">
+          <p class="skill-category-title">Tools &amp; DevOps</p>
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge--gray inline-block px-3 py-1 rounded-full text-sm font-medium">Git</span>
+              <span class="skill-badge--gray inline-block px-3 py-1 rounded-full text-sm font-medium">GitHub</span>
+              <span class="skill-badge--gray inline-block px-3 py-1 rounded-full text-sm font-medium">Docker</span>
+              <span class="skill-badge--gray inline-block px-3 py-1 rounded-full text-sm font-medium">Vercel</span>
+              <span class="skill-badge--gray inline-block px-3 py-1 rounded-full text-sm font-medium">Figma</span>
+              <span class="skill-badge--gray inline-block px-3 py-1 rounded-full text-sm font-medium">VS Code</span>
+              <span class="skill-badge--gray inline-block px-3 py-1 rounded-full text-sm font-medium">Postman</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       EXPERIENCE 섹션
+  ════════════════════════════════════════ -->
+  <section id="experience" class="section-container section-bg-alt px-4">
+    <div class="max-w-3xl mx-auto">
+
+      <div class="reveal">
+        <p class="text-indigo-600 dark:text-indigo-400 font-semibold tracking-widest text-xs uppercase mb-1">Where I've Worked</p>
+        <h2 class="section-title text-gray-900 dark:text-white">Experience</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="timeline">
+
+        <!-- ABC 테크 (재직중) -->
+        <div class="timeline-item reveal">
+          <div class="timeline-dot timeline-dot--active"></div>
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+              <div>
+                <h3 class="font-bold text-lg text-gray-900 dark:text-white">ABC 테크</h3>
+                <p class="text-indigo-600 dark:text-indigo-400 font-medium">Frontend Developer</p>
+              </div>
+              <div class="flex items-center gap-2 flex-shrink-0">
+                <span class="badge-active">재직중</span>
+              </div>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              2023.03 ~ 현재
+            </p>
+            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+              <li class="flex gap-2">
+                <span class="text-indigo-400 flex-shrink-0 mt-0.5">▸</span>
+                <span>React 기반 사내 관리자 대시보드 개발 및 유지보수</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-indigo-400 flex-shrink-0 mt-0.5">▸</span>
+                <span>TailwindCSS 도입으로 스타일 작업 생산성 <strong class="text-gray-900 dark:text-white">40% 향상</strong></span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-indigo-400 flex-shrink-0 mt-0.5">▸</span>
+                <span>REST API 연동 및 Redux Toolkit 상태관리 구현</span>
+              </li>
+            </ul>
+            <div class="flex flex-wrap gap-1.5 mt-4">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">TailwindCSS</span>
+              <span class="tech-tag">Redux Toolkit</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- XYZ 스타트업 (퇴직) -->
+        <div class="timeline-item reveal delay-200">
+          <div class="timeline-dot"></div>
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+              <div>
+                <h3 class="font-bold text-lg text-gray-900 dark:text-white">XYZ 스타트업</h3>
+                <p class="text-gray-600 dark:text-gray-400 font-medium">Junior Developer</p>
+              </div>
+              <div class="flex items-center gap-2 flex-shrink-0">
+                <span class="badge-inactive">퇴직</span>
+              </div>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              2022.01 ~ 2023.02
+            </p>
+            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+              <li class="flex gap-2">
+                <span class="text-gray-400 flex-shrink-0 mt-0.5">▸</span>
+                <span>Vue.js를 활용한 고객 서비스 웹 프론트엔드 개발</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-gray-400 flex-shrink-0 mt-0.5">▸</span>
+                <span>크로스 브라우저 호환성 이슈 해결 및 QA 지원</span>
+              </li>
+            </ul>
+            <div class="flex flex-wrap gap-1.5 mt-4">
+              <span class="tech-tag">Vue.js</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">SCSS</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       PROJECTS 섹션
+  ════════════════════════════════════════ -->
+  <section id="projects" class="section-container px-4">
+    <div class="max-w-5xl mx-auto">
+
+      <div class="reveal">
+        <p class="text-indigo-600 dark:text-indigo-400 font-semibold tracking-widest text-xs uppercase mb-1">What I've Built</p>
+        <h2 class="section-title text-gray-900 dark:text-white">Projects</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <!-- 필터 버튼 -->
+      <div class="reveal flex flex-wrap gap-2 mb-10">
+        <button class="filter-btn filter-btn--active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="frontend">Frontend</button>
+        <button class="filter-btn" data-filter="backend">Backend</button>
+      </div>
+
+      <!-- 프로젝트 카드 그리드 -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- 프로젝트 1: 포트폴리오 (Frontend) -->
+        <div class="reveal card-base bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm" data-category="frontend">
+          <div class="project-card">
+            <img
+              src="https://picsum.photos/seed/portfolio2024/400/220"
+              alt="포트폴리오 웹사이트 썸네일"
+              width="400" height="220"
+              loading="lazy"
+              onerror="this.src='https://picsum.photos/400/220'; this.onerror=null;"
+              class="w-full h-48 object-cover"
+            />
+            <div class="project-card-overlay">
+              <a href="https://github.com/devkim" target="_blank" rel="noopener noreferrer" class="overlay-btn">GitHub</a>
+              <a href="#" class="overlay-btn">Demo</a>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">포트폴리오 웹사이트</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">반응형 개발자 이력서 및 포트폴리오 사이트. 다크모드, 타이핑 애니메이션 포함.</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tech-tag">HTML</span>
+              <span class="tech-tag">CSS</span>
+              <span class="tech-tag">JS</span>
+              <span class="tech-tag">TailwindCSS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 프로젝트 2: 날씨 앱 (Frontend) -->
+        <div class="reveal delay-100 card-base bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm" data-category="frontend">
+          <div class="project-card">
+            <img
+              src="https://picsum.photos/seed/weatherapp/400/220"
+              alt="날씨 앱 썸네일"
+              width="400" height="220"
+              loading="lazy"
+              onerror="this.src='https://picsum.photos/seed/42/400/220'; this.onerror=null;"
+              class="w-full h-48 object-cover"
+            />
+            <div class="project-card-overlay">
+              <a href="https://github.com/devkim" target="_blank" rel="noopener noreferrer" class="overlay-btn">GitHub</a>
+              <a href="#" class="overlay-btn">Demo</a>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">날씨 앱</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">현재 위치 기반 날씨 정보 제공 웹 앱. OpenWeather API 연동.</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">OpenWeather API</span>
+              <span class="tech-tag">Axios</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 프로젝트 3: Todo 앱 (Frontend) -->
+        <div class="reveal delay-200 card-base bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm" data-category="frontend">
+          <div class="project-card">
+            <img
+              src="https://picsum.photos/seed/todoapp/400/220"
+              alt="Todo 앱 썸네일"
+              width="400" height="220"
+              loading="lazy"
+              onerror="this.src='https://picsum.photos/seed/77/400/220'; this.onerror=null;"
+              class="w-full h-48 object-cover"
+            />
+            <div class="project-card-overlay">
+              <a href="https://github.com/devkim" target="_blank" rel="noopener noreferrer" class="overlay-btn">GitHub</a>
+              <a href="#" class="overlay-btn">Demo</a>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">Todo 앱</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">드래그앤드롭을 지원하는 할 일 관리 앱. LocalStorage로 데이터 영속성 구현.</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tech-tag">Vue.js</span>
+              <span class="tech-tag">LocalStorage</span>
+              <span class="tech-tag">Vuex</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 프로젝트 4: API 서버 (Backend) -->
+        <div class="reveal card-base bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm" data-category="backend">
+          <div class="project-card">
+            <img
+              src="https://picsum.photos/seed/apiserver/400/220"
+              alt="REST API 서버 썸네일"
+              width="400" height="220"
+              loading="lazy"
+              onerror="this.src='https://picsum.photos/seed/55/400/220'; this.onerror=null;"
+              class="w-full h-48 object-cover"
+            />
+            <div class="project-card-overlay">
+              <a href="https://github.com/devkim" target="_blank" rel="noopener noreferrer" class="overlay-btn">GitHub</a>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">REST API 서버</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">JWT 인증 기반의 RESTful API 서버. 사용자 CRUD 및 게시판 기능 구현.</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">Express</span>
+              <span class="tech-tag">MySQL</span>
+              <span class="tech-tag">JWT</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       EDUCATION 섹션
+  ════════════════════════════════════════ -->
+  <section id="education" class="section-container section-bg-alt px-4">
+    <div class="max-w-3xl mx-auto">
+
+      <div class="reveal">
+        <p class="text-indigo-600 dark:text-indigo-400 font-semibold tracking-widest text-xs uppercase mb-1">My Background</p>
+        <h2 class="section-title text-gray-900 dark:text-white">Education</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-6">
+
+        <!-- 학력 -->
+        <div class="reveal bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <h3 class="font-bold text-gray-900 dark:text-white">한국대학교</h3>
+                <span class="text-sm text-gray-500 dark:text-gray-400">2018.03 ~ 2022.02</span>
+              </div>
+              <p class="text-indigo-600 dark:text-indigo-400 font-medium text-sm mt-0.5">컴퓨터공학과 학사 졸업</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 자격증 -->
+        <div class="reveal delay-100">
+          <h3 class="font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+            </svg>
+            자격증
+          </h3>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
+              <div>
+                <p class="font-semibold text-gray-900 dark:text-white">정보처리기사</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">한국산업인력공단</p>
+              </div>
+              <span class="badge-cert">2022.06</span>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
+              <div>
+                <p class="font-semibold text-gray-900 dark:text-white">SQLD</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">한국데이터산업진흥원</p>
+              </div>
+              <span class="badge-cert">2021.12</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SNS LINKS 섹션 (신규)
+  ════════════════════════════════════════ -->
+  <section id="sns" class="section-container px-4">
+    <div class="max-w-4xl mx-auto">
+
+      <div class="reveal">
+        <p class="text-indigo-600 dark:text-indigo-400 font-semibold tracking-widest text-xs uppercase mb-1">Find Me Online</p>
+        <h2 class="section-title text-gray-900 dark:text-white">SNS Links</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <!-- SNS 카드 그리드 -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-10">
+
+        <!-- GitHub -->
+        <a
+          href="https://github.com/devkim"
+          target="_blank" rel="noopener noreferrer"
+          class="sns-card sns-card--github reveal"
+        >
+          <span class="sns-card-arrow">→</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 mb-3" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.42 7.86 10.94.57.1.78-.25.78-.55v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.73-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 012.87-.39c.97 0 1.95.13 2.87.39 2.18-1.49 3.14-1.18 3.14-1.18.63 1.58.24 2.75.12 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.79.55A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/>
+          </svg>
+          <p class="font-bold text-sm mb-0.5">GitHub</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 sns-handle">@devkim</p>
+        </a>
+
+        <!-- LinkedIn -->
+        <a
+          href="https://linkedin.com/in/devkim"
+          target="_blank" rel="noopener noreferrer"
+          class="sns-card sns-card--linkedin reveal delay-100"
+        >
+          <span class="sns-card-arrow">→</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 mb-3" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 110-4.13 2.07 2.07 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46C23.21 24 24 23.23 24 22.27V1.73C24 .77 23.21 0 22.23 0z"/>
+          </svg>
+          <p class="font-bold text-sm mb-0.5">LinkedIn</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 sns-handle">in/devkim</p>
+        </a>
+
+        <!-- Twitter/X -->
+        <a
+          href="https://twitter.com/devkim"
+          target="_blank" rel="noopener noreferrer"
+          class="sns-card sns-card--twitter reveal delay-200"
+        >
+          <span class="sns-card-arrow">→</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 mb-3" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          <p class="font-bold text-sm mb-0.5">Twitter / X</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 sns-handle">@devkim</p>
+        </a>
+
+        <!-- Instagram -->
+        <a
+          href="https://instagram.com/devkim"
+          target="_blank" rel="noopener noreferrer"
+          class="sns-card sns-card--instagram reveal delay-300"
+        >
+          <span class="sns-card-arrow">→</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 mb-3" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+          <p class="font-bold text-sm mb-0.5">Instagram</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 sns-handle">@devkim</p>
+        </a>
+
+        <!-- Email -->
+        <a
+          href="mailto:dev.kim@email.com"
+          class="sns-card sns-card--email reveal delay-400"
+        >
+          <span class="sns-card-arrow">→</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          <p class="font-bold text-sm mb-0.5">Email</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 sns-handle">dev.kim@email.com</p>
+        </a>
+
+      </div>
+
+      <!-- GitHub Stats 위젯 -->
+      <div class="reveal text-center">
+        <img
+          src="https://github-readme-stats.vercel.app/api?username=devkim&show_icons=true&theme=tokyonight&hide_border=true&count_private=true"
+          alt="GitHub Stats"
+          loading="lazy"
+          onerror="this.style.display='none';"
+          class="mx-auto rounded-xl max-w-md w-full"
+        />
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       CONTACT 섹션
+  ════════════════════════════════════════ -->
+  <section id="contact" class="section-container section-bg-alt px-4">
+    <div class="max-w-4xl mx-auto">
+
+      <div class="reveal">
+        <p class="text-indigo-600 dark:text-indigo-400 font-semibold tracking-widest text-xs uppercase mb-1">Get In Touch</p>
+        <h2 class="section-title text-gray-900 dark:text-white">Contact</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12">
+
+        <!-- 연락처 정보 -->
+        <div class="reveal">
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
+            새로운 기회나 협업에 관심이 있으시다면 언제든지 연락주세요.
+            최대한 빠르게 답변 드리겠습니다!
+          </p>
+          <ul class="space-y-4">
+            <li class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs text-gray-500 dark:text-gray-500 font-medium">이메일</p>
+                <a href="mailto:dev.kim@email.com" class="text-gray-900 dark:text-white font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">dev.kim@email.com</a>
+              </div>
+            </li>
+            <li class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.42 7.86 10.94.57.1.78-.25.78-.55v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.73-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 012.87-.39c.97 0 1.95.13 2.87.39 2.18-1.49 3.14-1.18 3.14-1.18.63 1.58.24 2.75.12 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.79.55A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs text-gray-500 dark:text-gray-500 font-medium">GitHub</p>
+                <a href="https://github.com/devkim" target="_blank" rel="noopener noreferrer" class="text-gray-900 dark:text-white font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">github.com/devkim</a>
+              </div>
+            </li>
+            <li class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 110-4.13 2.07 2.07 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46C23.21 24 24 23.23 24 22.27V1.73C24 .77 23.21 0 22.23 0z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs text-gray-500 dark:text-gray-500 font-medium">LinkedIn</p>
+                <a href="https://linkedin.com/in/devkim" target="_blank" rel="noopener noreferrer" class="text-gray-900 dark:text-white font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">linkedin.com/in/devkim</a>
+              </div>
+            </li>
+            <li class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs text-gray-500 dark:text-gray-500 font-medium">위치</p>
+                <p class="text-gray-900 dark:text-white font-medium">서울, 대한민국</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 문의 폼 -->
+        <div class="reveal delay-200">
+          <form id="contact-form" novalidate class="space-y-5">
+
+            <!-- 이름 -->
+            <div>
+              <label class="form-label text-gray-700 dark:text-gray-300" for="form-name">이름 <span class="text-red-500">*</span></label>
+              <input
+                id="form-name"
+                type="text"
+                name="name"
+                placeholder="홍길동"
+                autocomplete="name"
+                class="form-input"
+              />
+              <p id="name-error" class="form-error"></p>
+            </div>
+
+            <!-- 이메일 -->
+            <div>
+              <label class="form-label text-gray-700 dark:text-gray-300" for="form-email">이메일 <span class="text-red-500">*</span></label>
+              <input
+                id="form-email"
+                type="email"
+                name="email"
+                placeholder="example@email.com"
+                autocomplete="email"
+                class="form-input"
+              />
+              <p id="email-error" class="form-error"></p>
+            </div>
+
+            <!-- 메시지 -->
+            <div>
+              <label class="form-label text-gray-700 dark:text-gray-300" for="form-message">메시지 <span class="text-red-500">*</span></label>
+              <textarea
+                id="form-message"
+                name="message"
+                rows="5"
+                placeholder="안녕하세요! 문의 내용을 입력해주세요..."
+                class="form-input resize-none"
+              ></textarea>
+              <p id="message-error" class="form-error"></p>
+            </div>
+
+            <!-- 전송 버튼 -->
+            <button type="submit" class="btn-primary w-full justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+              </svg>
+              메시지 보내기
+            </button>
+
+            <!-- 성공 메시지 -->
+            <div id="form-success" class="hidden bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 rounded-lg p-4 text-sm flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              메시지가 성공적으로 전송되었습니다! 빠른 시일 내에 연락드리겠습니다.
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <footer class="bg-gray-900 dark:bg-black text-gray-400 py-10 px-4">
+    <div class="max-w-4xl mx-auto flex flex-col items-center gap-6">
+
+      <!-- 로고 -->
+      <p class="font-bold text-xl text-white tracking-tight">&lt;조개발 /&gt;</p>
+
+      <!-- SNS 아이콘 -->
+      <div class="flex gap-4">
+        <a href="https://github.com/devkim" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="text-gray-500 hover:text-white transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.42 7.86 10.94.57.1.78-.25.78-.55v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.73-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 012.87-.39c.97 0 1.95.13 2.87.39 2.18-1.49 3.14-1.18 3.14-1.18.63 1.58.24 2.75.12 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.79.55A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/>
+          </svg>
+        </a>
+        <a href="https://linkedin.com/in/devkim" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-gray-500 hover:text-white transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 110-4.13 2.07 2.07 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46C23.21 24 24 23.23 24 22.27V1.73C24 .77 23.21 0 22.23 0z"/>
+          </svg>
+        </a>
+        <a href="https://twitter.com/devkim" target="_blank" rel="noopener noreferrer" aria-label="Twitter/X" class="text-gray-500 hover:text-white transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="https://instagram.com/devkim" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-gray-500 hover:text-white transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+        </a>
+        <a href="mailto:dev.kim@email.com" aria-label="이메일" class="text-gray-500 hover:text-white transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- 저작권 -->
+      <p class="text-sm text-gray-600 text-center">
+        © 2026 조개발. Designed &amp; Built with ♥ using TailwindCSS
+      </p>
+
+    </div>
+  </footer>
+
+
+  <!-- ════════════════════════════════════════
+       맨 위로 버튼
+  ════════════════════════════════════════ -->
+  <button
+    id="back-to-top"
+    aria-label="맨 위로"
+    class="hidden fixed bottom-6 right-6 w-11 h-11 rounded-full bg-indigo-600 text-white shadow-lg flex items-center justify-center z-50 hover:bg-indigo-700 transition-colors"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+    </svg>
+  </button>
+
+  <!-- JS 진입점 -->
+  <script src="main.js"></script>
+
+</body>
+</html>
